@@ -1,0 +1,79 @@
+{
+  "layout": "table",
+  "title": "Sample Table 1",
+  "dataHeaders": ["Name", "Type", "Opening Date", "Curr", "Opening Balance"],
+  "headerTypes": ["string", "string", "Date", "string", "number"],
+  "data": [
+    {
+      "Name": "Bank A",
+      "Type": "Asset",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": 1000000
+    },
+    {
+      "Name": "Customer X Receivable",
+      "Type": "Asset",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": 0
+    },
+    {
+      "Name": "Credit Card A",
+      "Type": "Liability",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": 0
+    },
+    {
+      "Name": "Supplier Y Payable",
+      "Type": "Liability",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": 0
+    },
+    {
+      "Name": "Salary Payable",
+      "Type": "Liability",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": 0
+    },
+    {
+      "Name": "Sales",
+      "Type": "Revenue",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": null
+    },
+    {
+      "Name": "Utilities",
+      "Type": "Expense",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": null
+    },
+    {
+      "Name": "Rental",
+      "Type": "Expense",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": null
+    },
+    {
+      "Name": "Salary",
+      "Type": "Expense",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": null
+    },
+    {
+      "Name": "Cost of Goods Sold",
+      "Type": "Expense",
+      "Opening Date": "2021-01-01",
+      "Curr": "SGD",
+      "Opening Balance": null
+    }
+  ],
+  "functions": ["create", "read", "update", "delete"]
+}

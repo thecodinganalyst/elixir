@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/elixir-theme.scss",
               "src/styles.sass"
             ],
             "scripts": []
