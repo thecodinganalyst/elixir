@@ -1,5 +1,11 @@
 # Elixir
 
+Elixir is a frontend creator to allow automatic creation of the web layer with just json files. It follows the material design system, and is built with Angular.
+
+## Status
+
+1. Able to create navigation and table dynamically
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
 
 ## Development server
