@@ -2,6 +2,9 @@
 
 Elixir is a frontend creator to allow automatic creation of the web layer with just json files. It follows the material design system, and is built with Angular.
 
+Instead of creating a different set of files for each implementation of new features or pages, elixir allows developers to reuse the same codebase, with a configuration file for each page, stating both the design and data. 
+The configuration file will be retrieved dynamically via http, so the design can be generated dynamically when needed, to achieve very low coupling and atomicity for the web layer. 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
 
 ## Status
