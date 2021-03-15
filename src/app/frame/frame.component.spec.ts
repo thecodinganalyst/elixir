@@ -8,6 +8,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { FrameComponent } from './frame.component';
+import {HttpClientModule} from '@angular/common/http';
+import {AppRoutingModule} from '../app-routing.module';
 
 describe('FrameComponent', () => {
   let component: FrameComponent;
@@ -24,6 +26,8 @@ describe('FrameComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
+        HttpClientModule,
+        AppRoutingModule
       ]
     }).compileComponents();
   }));

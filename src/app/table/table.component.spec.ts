@@ -5,6 +5,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
 import { TableComponent } from './table.component';
+import {AppRoutingModule} from '../app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -18,6 +20,8 @@ describe('TableComponent', () => {
         MatPaginatorModule,
         MatSortModule,
         MatTableModule,
+        AppRoutingModule,
+        HttpClientModule
       ]
     }).compileComponents();
   }));

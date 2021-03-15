@@ -26,7 +26,7 @@ export class TableComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const path: string = this.route.routeConfig.path;
+    const path: string = this.route.routeConfig?.path;
     const dataPath: string = this.navigationService.getDataByPath(path);
     if (!dataPath) { return; }
     this.dataService.getTable(dataPath).subscribe(
