@@ -13,7 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $elixir-primary: mat-palette($mat-teal);
-$elixir-accent: mat-palette($mat-cyan, A200, A100, A400);
+$elixir-accent: mat-palette($mat-deep-purple, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $elixir-warn: mat-palette($mat-deep-orange);
@@ -28,11 +28,45 @@ $elixir-theme: mat-light-theme((
   )
 ));
 
+// Theme for the elixir frame component
+@mixin elixir-frame-color($config-or-theme){
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+
+  .elixir-frame-side-nav{
+    background-color: mat-color($primary);
+    color: map-get($mat-dark-theme-foreground, text);
+
+    .mat-list-item{
+      color: map-get($mat-dark-theme-foreground, text);
+    }
+  }
+
+  .elixir-frame-content-toolbar{
+    &.mat-toolbar{
+      &.mat-primary{
+        background-color: map-get($mat-light-theme-background, app-bar);
+        color: mat-color($primary);
+      }
+    }
+  }
+}
+
+@mixin elixir-frame-theme($theme){
+  $color: mat-get-color-config($theme);
+
+  @if $color != null{
+    @include elixir-frame-color($color);
+  }
+}
+
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($elixir-theme);
-
+@include elixir-frame-theme($elixir-theme);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

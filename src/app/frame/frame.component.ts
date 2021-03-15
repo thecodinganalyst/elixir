@@ -11,7 +11,7 @@ import {NavigationService} from '../navigation.service';
 @Component({
   selector: 'app-frame',
   templateUrl: './frame.component.html',
-  styleUrls: ['./frame.component.css']
+  styleUrls: ['./frame.component.scss']
 })
 export class FrameComponent implements OnInit{
 
