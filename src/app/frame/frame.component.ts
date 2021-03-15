@@ -6,6 +6,8 @@ import { Navigation} from '../navigation';
 import {DataService } from '../data.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../navigation.service';
+import {MatIconRegistry} from '@angular/material/icon';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -28,6 +30,8 @@ export class FrameComponent implements OnInit{
   constructor(private breakpointObserver: BreakpointObserver,
               private dataService: DataService,
               private navigationService: NavigationService,
+              private matIconRegistry: MatIconRegistry,
+              private domSanitizer: DomSanitizer,
               private router: Router) {}
 
   getNavigation(): void {
@@ -37,7 +41,11 @@ export class FrameComponent implements OnInit{
         this.routeLoaded = this.navigationService.routes.length > 0 ? true : false;
         this.router.resetConfig(this.navigationService.routes);
         this.navigation = this.navigationService.navigation;
-        this.toolbarTitle = this.navigation.logo;
+        this.toolbarTitle = this.navigation.title;
+        this.matIconRegistry.addSvgIcon(
+          'logo',
+          this.domSanitizer.bypassSecurityTrustResourceUrl('../../' + this.navigation.logo)
+        );
       }
     );
   }

@@ -3,7 +3,10 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar *ngIf="navigation">{{navigation.logo}}</mat-toolbar>
+    <mat-toolbar *ngIf="navigation">
+      <mat-icon *ngIf="navigation.logo" svgIcon="logo"></mat-icon>
+      <span>{{navigation.title}}</span>
+    </mat-toolbar>
     <mat-nav-list *ngIf="navigation && routeLoaded">
       <a *ngFor="let item of navigation.menu" mat-list-item routerLink="{{item.path}}" (click)="updateToolbarTitle(item.name)">
         <mat-icon *ngIf="item.icon" aria-hidden="true">{{item.icon}}</mat-icon>

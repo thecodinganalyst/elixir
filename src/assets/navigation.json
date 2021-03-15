@@ -1,5 +1,6 @@
 {
-  "logo": "Elixir",
+  "logo": "assets/elixir-logo-inverted.svg",
+  "title": "Elixir",
   "menu": [
     {
       "icon": "table",
