@@ -46,8 +46,8 @@ export class NavigationService {
     for (const item of navigation.menu){
       routes.push({
         path: item.path,
-        // TODO: remove circular reference
-        component: this.componentMapService.getComponent(item.component)
+        component: this.componentMapService.getComponent(item.component),
+        data: {componentData: item.data}
       });
     }
     return routes;

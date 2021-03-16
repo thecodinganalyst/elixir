@@ -4,8 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
 import {ActivatedRoute} from '@angular/router';
-import {NavigationService} from '../navigation.service';
 import {DataService} from '../data.service';
+import {first, pluck, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-table',
@@ -21,22 +21,21 @@ export class TableComponent implements AfterViewInit {
   displayedColumns: string[];
 
   constructor(private route: ActivatedRoute,
-              private navigationService: NavigationService,
               private dataService: DataService) {
   }
 
   ngAfterViewInit(): void {
-    const path: string = this.route.routeConfig?.path;
-    const dataPath: string = this.navigationService.getDataByPath(path);
-    if (!dataPath) { return; }
-    this.dataService.getTable(dataPath).subscribe(
-      value => {
-        this.dataSource = new TableDataSource(value);
-        this.displayedColumns = this.dataSource.displayedColumns;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.table.dataSource = this.dataSource;
-      }
+    const tableView$ = this.route.data.pipe(
+      pluck('componentData'),
+      first(),
+      switchMap(dataPath => this.dataService.getTable(dataPath))
     );
+    tableView$.subscribe(value => {
+      this.dataSource = new TableDataSource(value);
+      this.displayedColumns = this.dataSource.displayedColumns;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.table.dataSource = this.dataSource;
+    });
   }
 }

@@ -4,7 +4,7 @@ import { Navigation } from './navigation';
 import {EMPTY, Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import { View } from './view';
-import { Table } from './table';
+import { TableView } from './tableView';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,11 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getTable(url: string): Observable<Table> {
-    return this.http.get<Table>(url).pipe(
+  getTable(url: string): Observable<TableView> {
+    return this.http.get<TableView>(url).pipe(
       tap(_ => this.log('Fetch table')),
       tap(_ => this.log(JSON.stringify(_))),
-      catchError(this.handleError<Table>('getTable'))
+      catchError(this.handleError<TableView>('getTable'))
     );
   }
 

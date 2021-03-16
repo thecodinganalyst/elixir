@@ -1,6 +1,6 @@
 import { View } from './view';
 
-export interface Table extends View {
+export interface TableView extends View {
   title: string;
   dataHeaders: string[];
   headerTypes: string[];
