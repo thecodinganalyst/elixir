@@ -5,12 +5,14 @@ import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
 import {ActivatedRoute} from '@angular/router';
 import {DataService} from '../data.service';
-import {first, pluck, switchMap} from 'rxjs/operators';
+import {first, map, pluck, shareReplay, switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
