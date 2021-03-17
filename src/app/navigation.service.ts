@@ -50,6 +50,11 @@ export class NavigationService {
         data: {componentData: item.data}
       });
     }
+    routes.push({
+      path: '',
+      redirectTo: '/',
+      pathMatch: 'full'
+    });
     return routes;
   }
 }

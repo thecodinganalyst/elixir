@@ -16,6 +16,13 @@
   color: inherit;
 }
 
+.sidenav .mat-toolbar a{
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
 .sidenav .mat-toolbar .mat-icon{
   margin-right: 0.5em;
 }
