@@ -1,0 +1,58 @@
+{
+  "layout": "form",
+  "title": "Sample Form 1",
+  "data": [
+    {
+      "Name": "Name",
+      "Value": "",
+      "Label": "Name",
+      "Required": true,
+      "Order": 1,
+      "Control": "textbox",
+      "Type": "text"
+    },
+    {
+      "Name": "Type",
+      "Value": "",
+      "Label": "Type",
+      "Required": true,
+      "Order": 2,
+      "Control": "dropdown",
+      "Options": [
+        { "Key": "Asset", "Value": "Asset" },
+        { "Key": "Liability", "Value": "Liability" }
+      ]
+    },
+    {
+      "Name": "OpenDate",
+      "Value": "",
+      "Label": "Opening Date",
+      "Required": true,
+      "Order": 3,
+      "Control": "textbox",
+      "Type": "date"
+    },
+    {
+      "Name": "Curr",
+      "Value": "",
+      "Label": "Currency",
+      "Required": true,
+      "Order": 4,
+      "Control": "dropdown",
+      "Options": [
+        { "Key": "SGD", "Value": "SGD" },
+        { "Key": "USD", "Value": "USD" }
+      ]
+    },
+    {
+      "Name": "OpenBal",
+      "Value": "",
+      "Label": "Opening Balance",
+      "Required": true,
+      "Order": 5,
+      "Control": "textbox",
+      "Type": "number"
+    }
+  ],
+  "functions": ["Save", "Cancel"]
+}

@@ -4,7 +4,7 @@ import { Navigation } from './navigation';
 import {EMPTY, Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import { View } from './view';
-import { TableView } from './tableView';
+import { TableView } from './table-view';
 
 @Injectable({
   providedIn: 'root'
