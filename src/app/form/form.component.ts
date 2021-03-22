@@ -3,8 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataService} from '../data.service';
 import {FormView} from './form-view';
 import {ActivatedRoute} from '@angular/router';
-import {first, map, pluck, switchMap, tap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {pluck, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
