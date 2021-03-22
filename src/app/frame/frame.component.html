@@ -23,7 +23,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary" class="elixir-frame-content-toolbar">
+    <mat-toolbar *ngIf="isHandset$ | async" color="primary" class="elixir-frame-content-toolbar">
       <button
         type="button"
         aria-label="Toggle sidenav"
