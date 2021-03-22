@@ -3,55 +3,60 @@
   "title": "Sample Form 1",
   "data": [
     {
-      "Name": "Name",
-      "Value": "",
-      "Label": "Name",
-      "Required": true,
-      "Order": 1,
-      "Control": "textbox",
-      "Type": "text"
+      "name": "Name",
+      "value": "",
+      "label": "Name",
+      "required": true,
+      "order": 1,
+      "control": "textbox",
+      "type": "text",
+      "size": "12"
     },
     {
-      "Name": "Type",
-      "Value": "",
-      "Label": "Type",
-      "Required": true,
-      "Order": 2,
-      "Control": "dropdown",
-      "Options": [
-        { "Key": "Asset", "Value": "Asset" },
-        { "Key": "Liability", "Value": "Liability" }
+      "name": "Type",
+      "value": "",
+      "label": "Type",
+      "required": true,
+      "order": 2,
+      "control": "dropdown",
+      "size": "12",
+      "options": [
+        { "display": "Asset", "value": "Asset" },
+        { "display": "Liability", "value": "Liability" }
       ]
     },
     {
-      "Name": "OpenDate",
-      "Value": "",
-      "Label": "Opening Date",
-      "Required": true,
-      "Order": 3,
-      "Control": "textbox",
-      "Type": "date"
+      "name": "OpenDate",
+      "value": "",
+      "label": "Opening Date",
+      "required": true,
+      "order": 3,
+      "control": "textbox",
+      "type": "date",
+      "size": "12"
     },
     {
-      "Name": "Curr",
-      "Value": "",
-      "Label": "Currency",
-      "Required": true,
-      "Order": 4,
-      "Control": "dropdown",
-      "Options": [
-        { "Key": "SGD", "Value": "SGD" },
-        { "Key": "USD", "Value": "USD" }
+      "name": "Curr",
+      "value": "",
+      "label": "Currency",
+      "required": true,
+      "order": 4,
+      "control": "dropdown",
+      "size": "4",
+      "options": [
+        { "display": "SGD", "value": "SGD" },
+        { "display": "USD", "value": "USD" }
       ]
     },
     {
-      "Name": "OpenBal",
-      "Value": "",
-      "Label": "Opening Balance",
-      "Required": true,
-      "Order": 5,
-      "Control": "textbox",
-      "Type": "number"
+      "name": "OpenBal",
+      "value": "",
+      "label": "Opening Balance",
+      "required": true,
+      "order": 4,
+      "control": "textbox",
+      "type": "number",
+      "size": "8"
     }
   ],
   "functions": ["Save", "Cancel"]

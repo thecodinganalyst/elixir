@@ -1,4 +1,4 @@
-import { MenuItem } from './MenuItem';
+import { MenuItem } from './menuItem';
 
 export interface Navigation {
   logo?: string;

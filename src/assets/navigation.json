@@ -3,11 +3,18 @@
   "title": "Elixir",
   "menu": [
     {
-      "icon": "table",
+      "icon": "table_view",
       "name": "Sample Table 1",
       "path": "sample_table_1",
       "component": "table",
       "data": "assets/sample_table_1.json"
+    },
+    {
+      "icon": "dynamic_form",
+      "name": "Sample Form 1",
+      "path": "sample_form_1",
+      "component": "form",
+      "data": "assets/sample_form_1.json"
     }
   ],
   "bottomMenu": [

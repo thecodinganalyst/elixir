@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Navigation } from './navigation';
+import { Navigation } from './navigation/navigation';
 import {EMPTY, Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import { View } from './view';
-import { TableView } from './table-view';
+import { TableView } from './table/table-view';
+import { FormView } from './form/form-view';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,14 @@ export class DataService {
       tap(_ => this.log('Fetch table')),
       tap(_ => this.log(JSON.stringify(_))),
       catchError(this.handleError<TableView>('getTable'))
+    );
+  }
+
+  getForm(url: string): Observable<FormView> {
+    return this.http.get<FormView>(url).pipe(
+      tap(_ => this.log('Fetch form')),
+      tap(_ => this.log(JSON.stringify(_))),
+      catchError(this.handleError<FormView>('getForm'))
     );
   }
 

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Navigation} from '../navigation';
+import { Navigation} from '../navigation/navigation';
 import {DataService } from '../data.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NavigationService} from '../navigation.service';
+import {NavigationService} from '../navigation/navigation.service';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -36,16 +36,17 @@ export class FrameComponent implements OnInit{
 
   getNavigation(): void {
     this.dataService.getNavigation().subscribe(
-      data => {
-        this.navigationService.navigation = data;
-        this.routeLoaded = this.navigationService.routes.length > 0 ? true : false;
-        this.router.resetConfig(this.navigationService.routes);
-        this.navigation = this.navigationService.navigation;
+      navigation => {
+        this.navigation = navigation;
         this.toolbarTitle = this.navigation.title;
         this.matIconRegistry.addSvgIcon(
           'logo',
           this.domSanitizer.bypassSecurityTrustResourceUrl('../../' + this.navigation.logo)
         );
+        this.navigationService.initRoutes(navigation).subscribe(routes => {
+          this.router.resetConfig(routes);
+          this.routeLoaded = true;
+        });
       }
     );
   }

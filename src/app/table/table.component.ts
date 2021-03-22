@@ -5,9 +5,7 @@ import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
 import {ActivatedRoute} from '@angular/router';
 import {DataService} from '../data.service';
-import {first, map, pluck, shareReplay, switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {first, pluck, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-table',

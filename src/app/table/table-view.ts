@@ -1,4 +1,4 @@
-import { View } from './view';
+import { View } from '../view';
 
 export class TableView extends View {
   dataHeaders: string[];
