@@ -5,12 +5,25 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 
 import { TableComponent } from './table.component';
-import {AppRoutingModule} from '../app-routing.module';
-import {HttpClientModule} from '@angular/common/http';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {DataService} from '../data.service';
 
 describe('TableComponent', () => {
   let component: TableComponent;
   let fixture: ComponentFixture<TableComponent>;
+
+  const mockActivatedRoute = {data: of({componentData: 'assets/sample_table.json'})};
+  const mockTable = {
+    layout: 'table',
+    title: 'Sample Table',
+    dataHeaders: ['a', 'b'],
+    headerTypes: ['number', 'number'],
+    data: [{a: 1, b: 2}, {a: 2, b: 4}],
+    functions: ['save']
+  };
+  const dataServiceSpy = jasmine.createSpyObj('DataService', ['getTable']);
+  dataServiceSpy.getTable.and.returnValue(of(mockTable));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -20,9 +33,11 @@ describe('TableComponent', () => {
         MatPaginatorModule,
         MatSortModule,
         MatTableModule,
-        AppRoutingModule,
-        HttpClientModule
-      ]
+      ],
+      providers: [
+        {provide: ActivatedRoute, useValue: mockActivatedRoute},
+        {provide: DataService, useValue: dataServiceSpy}
+      ],
     }).compileComponents();
   }));
 

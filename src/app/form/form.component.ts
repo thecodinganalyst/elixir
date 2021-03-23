@@ -32,6 +32,7 @@ export class FormComponent implements OnInit{
     formView$.subscribe(formView => {
       formView.data.sort((a, b) => a.order - b.order);
       this.formView = formView;
+
       const frmCtlList = {};
       formView.data.forEach((ctl) => {
         const frmCtl = new FormControl(ctl.value, ctl.required ? Validators.required : null);

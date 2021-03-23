@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -21,7 +21,8 @@ export class TableComponent implements AfterViewInit {
   displayedColumns: string[];
 
   constructor(private route: ActivatedRoute,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private cdRef: ChangeDetectorRef) {
   }
 
   ngAfterViewInit(): void {
@@ -36,6 +37,7 @@ export class TableComponent implements AfterViewInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.table.dataSource = this.dataSource;
+      this.cdRef.detectChanges();
     });
   }
 }
