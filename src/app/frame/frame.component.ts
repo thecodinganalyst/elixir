@@ -9,7 +9,6 @@ import {NavigationService} from '../navigation/navigation.service';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
 
-
 @Component({
   selector: 'app-frame',
   templateUrl: './frame.component.html',
@@ -41,7 +40,7 @@ export class FrameComponent implements OnInit{
         this.toolbarTitle = this.navigation.title;
         this.matIconRegistry.addSvgIcon(
           'logo',
-          this.domSanitizer.bypassSecurityTrustResourceUrl('../../' + this.navigation.logo)
+          this.domSanitizer.bypassSecurityTrustResourceUrl(this.navigation.logo)
         );
         this.navigationService.initRoutes(navigation).subscribe(routes => {
           this.router.resetConfig(routes);

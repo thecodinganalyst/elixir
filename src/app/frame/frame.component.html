@@ -6,7 +6,7 @@
     <mat-toolbar *ngIf="navigation">
       <a routerLink="">
         <mat-icon *ngIf="navigation.logo" svgIcon="logo"></mat-icon>
-        <span>{{navigation.title}}</span>
+        <span class="navTitle">{{navigation.title}}</span>
       </a>
     </mat-toolbar>
     <mat-nav-list *ngIf="navigation && routeLoaded">
