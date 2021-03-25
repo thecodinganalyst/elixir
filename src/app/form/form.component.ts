@@ -35,8 +35,7 @@ export class FormComponent implements OnInit{
 
       const frmCtlList = {};
       formView.data.forEach((ctl) => {
-        const frmCtl = new FormControl(ctl.value, ctl.required ? Validators.required : null);
-        frmCtlList[ctl.name] = frmCtl;
+        frmCtlList[ctl.name] = new FormControl(ctl.value, ctl.required ? Validators.required : null);
       });
       this.formGroup = this.fb.group(frmCtlList);
     });
