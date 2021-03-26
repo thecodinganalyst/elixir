@@ -7,23 +7,22 @@ import { MatTableModule } from '@angular/material/table';
 import { TableComponent } from './table.component';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
-import {DataService} from '../data.service';
+import {SAMPLE} from '../testing/mock-elixir';
+import {HttpClient} from '@angular/common/http';
+import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
+import {HarnessLoader} from '@angular/cdk/testing';
+import {MatTableHarness} from '@angular/material/table/testing';
 
 describe('TableComponent', () => {
   let component: TableComponent;
   let fixture: ComponentFixture<TableComponent>;
+  let loader: HarnessLoader;
+  let tableHarness: MatTableHarness;
 
   const mockActivatedRoute = {data: of({componentData: 'assets/sample_table.json'})};
-  const mockTable = {
-    layout: 'table',
-    title: 'Sample Table',
-    dataHeaders: ['a', 'b'],
-    headerTypes: ['number', 'number'],
-    data: [{a: 1, b: 2}, {a: 2, b: 4}],
-    functions: ['save']
-  };
-  const dataServiceSpy = jasmine.createSpyObj('DataService', ['getTable']);
-  dataServiceSpy.getTable.and.returnValue(of(mockTable));
+
+  const httpClientSpy: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
+  httpClientSpy.get.withArgs(SAMPLE.MOCK_TABLE_URL).and.returnValue(of(SAMPLE.MOCK_TABLE));
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -36,18 +35,21 @@ describe('TableComponent', () => {
       ],
       providers: [
         {provide: ActivatedRoute, useValue: mockActivatedRoute},
-        {provide: DataService, useValue: dataServiceSpy}
+        {provide: HttpClient, useValue: httpClientSpy }
       ],
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async () => {
     fixture = TestBed.createComponent(TableComponent);
     component = fixture.componentInstance;
+    loader = TestbedHarnessEnvironment.loader(fixture);
+    tableHarness = await loader.getHarness(MatTableHarness);
     fixture.detectChanges();
   });
 
   it('should compile', () => {
     expect(component).toBeTruthy();
   });
+
 });

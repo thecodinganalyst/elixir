@@ -10,32 +10,23 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormComponent } from './form.component';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
-import {DataService} from '../data.service';
-import {FormView} from './form-view';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {HarnessLoader} from '@angular/cdk/testing';
 import {MatFormFieldHarness} from '@angular/material/form-field/testing';
 import {Control} from './control';
 import {MatInputHarness} from '@angular/material/input/testing';
 import {MatSelectHarness} from '@angular/material/select/testing';
+import {SAMPLE} from '../testing/mock-elixir';
+import {HttpClient} from '@angular/common/http';
+import {MatButtonHarness} from '@angular/material/button/testing';
 
 describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
   const mockActivatedRoute = {data: of({componentData: 'assets/sample_form.json'})};
-  const mockForm: FormView = {
-    layout: 'form',
-    title: 'Sample Form',
-    data: [
-      {name: 'Name', value: '', label: 'Name', required: true, order: 2, control: 'textbox', type: 'text', size: 12},
-      {name: 'Type', value: '', label: 'Type', required: true, order: 1, control: 'textbox', type: 'text', size: 12},
-      {name: 'Select', value: '', label: 'Select', required: true, order: 3, control: 'dropdown', size: 6, options:
-          [{display: 'one', value: 1}, {display: 'two', value: 2}]},
-      {name: 'Select', value: '', label: 'Select', required: true, order: 4, control: 'dropdown', size: 6}],
-    functions: ['save']
-  };
-  const dataServiceSpy = jasmine.createSpyObj('DataService', ['getForm']);
-  dataServiceSpy.getForm.and.returnValue(of(mockForm));
+
+  const httpClientSpy: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
+  httpClientSpy.get.withArgs(SAMPLE.MOCK_FORM_URL).and.returnValue(of(SAMPLE.MOCK_FORM));
 
   let formEl: HTMLElement;
   let matCardEl: HTMLElement;
@@ -44,7 +35,7 @@ describe('FormComponent', () => {
   let loader: HarnessLoader;
   let matFormFieldHarnesses: MatFormFieldHarness[];
 
-  const mockFormSortedData: Control[] = mockForm.data.sort((a, b) => a.order - b.order);
+  const mockFormSortedData: Control[] = SAMPLE.MOCK_FORM.data.sort((a, b) => a.order - b.order);
 
   const CtrlComponentHarnessMap = {textbox: MatInputHarness, textArea: MatInputHarness, dropdown: MatSelectHarness};
 
@@ -62,7 +53,7 @@ describe('FormComponent', () => {
       ],
       providers: [
         {provide: ActivatedRoute, useValue: mockActivatedRoute},
-        {provide: DataService, useValue: dataServiceSpy}
+        {provide: HttpClient, useValue: httpClientSpy}
         ]
     }).compileComponents();
   }));
@@ -87,13 +78,13 @@ describe('FormComponent', () => {
   });
 
   it('should have title as described in mockForm', () => {
-    expect(component.formView.title).toBe(mockForm.title);
+    expect(component.formView.title).toBe(SAMPLE.MOCK_FORM.title);
     const matCardTitle = matCardEl.querySelector('.mat-card-title');
-    expect(matCardTitle.textContent).toEqual(mockForm.title);
+    expect(matCardTitle.textContent).toEqual(SAMPLE.MOCK_FORM.title);
   });
 
   it('should have same number of fields as described in mockForm', () => {
-    expect(matFormFieldHarnesses.length).toEqual(mockForm.data.length);
+    expect(matFormFieldHarnesses.length).toEqual(SAMPLE.MOCK_FORM.data.length);
   });
 
   it('should display the labels in the order specified in mockForm', async (done) => {
@@ -157,6 +148,13 @@ describe('FormComponent', () => {
         }
       }
     }
+  });
+
+  it('should show message box when submit is clicked', async () => {
+    spyOn(window, 'alert');
+    const submitButton = await loader.getHarness(MatButtonHarness.with({text: 'Submit'}));
+    await submitButton.click();
+    expect(window.alert).toHaveBeenCalledWith('Thanks!');
   });
 
 });

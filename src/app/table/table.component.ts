@@ -4,8 +4,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
 import {ActivatedRoute} from '@angular/router';
-import {DataService} from '../data.service';
 import {first, pluck, switchMap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {TableView} from './table-view';
 
 @Component({
   selector: 'app-table',
@@ -21,15 +22,15 @@ export class TableComponent implements AfterViewInit {
   displayedColumns: string[];
 
   constructor(private route: ActivatedRoute,
-              private dataService: DataService,
-              private cdRef: ChangeDetectorRef) {
+              private cdRef: ChangeDetectorRef,
+              private httpClient: HttpClient) {
   }
 
   ngAfterViewInit(): void {
     const tableView$ = this.route.data.pipe(
       pluck('componentData'),
       first(),
-      switchMap(dataPath => this.dataService.getTable(dataPath))
+      switchMap(dataPath => this.httpClient.get<TableView>(dataPath))
     );
     tableView$.subscribe(value => {
       this.dataSource = new TableDataSource(value);

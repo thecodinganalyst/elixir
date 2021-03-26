@@ -8,9 +8,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { FrameComponent } from './frame.component';
-import {DataService} from '../data.service';
 import {of} from 'rxjs';
-import {Router, RouterModule, RouterOutlet} from '@angular/router';
+import {Router} from '@angular/router';
 import {NavigationService} from '../navigation/navigation.service';
 import {FakeMatIconRegistry, MatIconHarness} from '@angular/material/icon/testing';
 import {HarnessLoader} from '@angular/cdk/testing';
@@ -19,6 +18,8 @@ import {MatNavListHarness} from '@angular/material/list/testing';
 import {BrowserModule, By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {RouterLinkDirectiveStub} from '../testing/router-link-directive-stub';
+import {HttpClient} from '@angular/common/http';
+import {SAMPLE} from '../testing/mock-elixir';
 
 describe('FrameComponent', () => {
   let component: FrameComponent;
@@ -29,28 +30,15 @@ describe('FrameComponent', () => {
   let sideNavToolBarLoader: HarnessLoader;
   let menu: MatNavListHarness;
 
-  const mockNavigation = {
-    logo: 'assets/elixir-logo-inverted.svg',
-    title: 'elixir test',
-    menu: [
-      {icon: 'table_view', name: 'sample table', path: 'sample_table', component: 'table', data: 'assets/sample_table.json'},
-      {icon: 'dynamic_form', name: 'sample form', path: 'sample_form', component: 'form', data: 'assets/sample_form.json'}
-    ],
-    bottomMenu: []
-  };
-  const dataServiceSpy = jasmine.createSpyObj('DataService', ['getNavigation']);
-  dataServiceSpy.getNavigation.and.returnValue(of(mockNavigation));
-
   const routerSpy = jasmine.createSpyObj('Router', ['resetConfig']);
   let mockRouterConfig = {};
   routerSpy.resetConfig.and.callFake((routes) => mockRouterConfig = routes);
 
-  const mockConfig = [
-    {path: 'sample_table', component: 'table', data: 'assets/sample_table.json'},
-    {path: 'sample_form', component: 'form', data: 'assets/sample_form.json'},
-    {path: '', redirectTo: '/', pathMatch: 'full'}];
-  const navSvcSpy = jasmine.createSpyObj('NavigationService', ['initRoutes']);
-  navSvcSpy.initRoutes.and.returnValue(of(mockConfig));
+  const navSvcSpy = jasmine.createSpyObj('NavigationService', ['initRoutes'], {NAVIGATION_URL: 'assets/navigation.json'});
+  navSvcSpy.initRoutes.and.returnValue(of(SAMPLE.MOCK_CONFIG));
+
+  const httpClientSpy: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
+  httpClientSpy.get.withArgs(SAMPLE.MOCK_NAVIGATION_URL).and.returnValue(of(SAMPLE.MOCK_NAVIGATION));
 
   let linkDes: DebugElement[];
   let routerLinks: RouterLinkDirectiveStub[];
@@ -69,7 +57,7 @@ describe('FrameComponent', () => {
         BrowserModule,
       ],
       providers: [
-        {provide: DataService, useValue: dataServiceSpy},
+        {provide: HttpClient, useValue: httpClientSpy},
         {provide: Router, useValue: routerSpy},
         {provide: NavigationService, useValue: navSvcSpy},
         {provide: MatIconRegistry, useClass: FakeMatIconRegistry}
@@ -125,5 +113,8 @@ describe('FrameComponent', () => {
     // TODO: Check href of MatNavListItemHarness is correct also
   });
 
+  it('should update toolbar title when a menu item is clicked', () => {
+    
+  });
 
 });

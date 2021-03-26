@@ -11,6 +11,7 @@ import {FormComponent} from '../form/form.component';
 export class NavigationService {
 
   componentMap: Map<string, Type<any>> = new Map<string, Type<any>>();
+  readonly NAVIGATION_URL: string = 'assets/navigation.json';
 
   constructor() {
     this.componentMap.set('table', TableComponent);

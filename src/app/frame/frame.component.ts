@@ -3,11 +3,11 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Navigation} from '../navigation/navigation';
-import {DataService } from '../data.service';
 import {Router} from '@angular/router';
 import {NavigationService} from '../navigation/navigation.service';
 import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-frame',
@@ -27,14 +27,14 @@ export class FrameComponent implements OnInit{
   toolbarTitle: string;
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private dataService: DataService,
               private navigationService: NavigationService,
               private matIconRegistry: MatIconRegistry,
               private domSanitizer: DomSanitizer,
+              private httpClient: HttpClient,
               private router: Router) {}
 
   getNavigation(): void {
-    this.dataService.getNavigation().subscribe(
+    this.httpClient.get<Navigation>(this.navigationService.NAVIGATION_URL).subscribe(
       navigation => {
         this.navigation = navigation;
         this.toolbarTitle = this.navigation.title;
