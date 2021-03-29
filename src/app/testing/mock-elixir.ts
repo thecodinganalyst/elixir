@@ -25,7 +25,7 @@ export class SAMPLE {
     title: 'Sample Table',
     dataHeaders: ['a', 'b'],
     headerTypes: ['number', 'number'],
-    data: [{a: 1, b: 2}, {a: 2, b: 4}],
+    data: [{a: 4, b: 2}, {a: 2, b: 4}, {a: 6, b: 6}, {a: 1, b: 1}, {a: 3, b: 5}, {a: 5, b: 3}],
     functions: ['save']
   };
   static MOCK_TABLE_URL = 'assets/sample_table.json';

@@ -1,8 +1,8 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
+import {MatTableModule} from '@angular/material/table';
 
 import { TableComponent } from './table.component';
 import {ActivatedRoute} from '@angular/router';
@@ -11,7 +11,8 @@ import {SAMPLE} from '../testing/mock-elixir';
 import {HttpClient} from '@angular/common/http';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {HarnessLoader} from '@angular/cdk/testing';
-import {MatTableHarness} from '@angular/material/table/testing';
+import {MatCellHarness, MatHeaderCellHarness, MatTableHarness} from '@angular/material/table/testing';
+import {MatPaginatorHarness} from '@angular/material/paginator/testing';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -50,6 +51,39 @@ describe('TableComponent', () => {
 
   it('should compile', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should sort ascending and descending correctly', async () => {
+    const headerCellsHarness = await tableHarness.getAllHarnesses(MatHeaderCellHarness);
+    const headerCellEl = await headerCellsHarness[0].host();
+    await headerCellEl.click();
+    fixture.detectChanges();
+    let cellR1C1Harness = await tableHarness.getHarness(MatCellHarness);
+    expect(await cellR1C1Harness.getText()).toBe('1');
+    await headerCellEl.click();
+    fixture.detectChanges();
+    cellR1C1Harness = await tableHarness.getHarness(MatCellHarness);
+    expect(await cellR1C1Harness.getText()).toBe('6');
+  });
+
+  it('should throw error if paginator is absent', () => {
+    component.dataSource.paginator = null;
+    fixture.detectChanges();
+    expect(component.dataSource.connect).toThrowError();
+  });
+
+  it('should throw error if sort is absent', () => {
+    component.dataSource.sort = null;
+    fixture.detectChanges();
+    expect(component.dataSource.connect).toThrowError();
+  });
+
+  it('should page well', async () => {
+    const paginatorHarness = await loader.getHarness(MatPaginatorHarness);
+    await paginatorHarness.setPageSize(5);
+    await paginatorHarness.goToNextPage();
+    const p2CellR1C1Harness = await tableHarness.getHarness(MatCellHarness);
+    expect(await p2CellR1C1Harness.getText()).toBe('5');
   });
 
 });
