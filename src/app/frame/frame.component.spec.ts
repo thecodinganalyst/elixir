@@ -1,4 +1,4 @@
-import { LayoutModule } from '@angular/cdk/layout';
+import {LayoutModule} from '@angular/cdk/layout';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -113,8 +113,17 @@ describe('FrameComponent', () => {
     // TODO: Check href of MatNavListItemHarness is correct also
   });
 
-  it('should update toolbar title when a menu item is clicked', () => {
-    
+  it('should update toolbar title when a menu item is clicked', async () => {
+    component.isHandset$ = of(true);
+    fixture.detectChanges();
+    const sampleTableMenuItem = (await menu.getItems())[0];
+    await sampleTableMenuItem.click();
+
+    const nativeEl = fixture.nativeElement;
+    const toolBarEl = nativeEl.querySelector('.mat-sidenav-content .mat-toolbar');
+    const toolBarSpanEl = toolBarEl.querySelector('header');
+
+    expect(toolBarSpanEl.innerText).toEqual('sample table');
   });
 
 });
