@@ -155,12 +155,12 @@ describe('FormComponent', () => {
 
   it('should display the buttons in the mat-card-actions', async () => {
     const matCardActionEl = matCardEl.querySelector('.mat-card-actions');
-    const mockFnCount = SAMPLE.MOCK_FORM.functions.length;
+    const mockFnCount = SAMPLE.MOCK_FORM.actions.length;
     const buttons = matCardActionEl.querySelectorAll('button');
     expect(buttons?.length ?? 0).toEqual(mockFnCount);
     const matButtons = await matCardActionLoader.getAllHarnesses(MatButtonHarness);
-    for (let i = 0; i < SAMPLE.MOCK_FORM.functions.length; i++){
-      expect(await matButtons[i].getText()).toEqual(SAMPLE.MOCK_FORM.functions[i].label);
+    for (let i = 0; i < SAMPLE.MOCK_FORM.actions.length; i++){
+      expect(await matButtons[i].getText()).toEqual(SAMPLE.MOCK_FORM.actions[i].label);
     }
   });
 

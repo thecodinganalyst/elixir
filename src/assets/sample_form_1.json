@@ -59,7 +59,7 @@
       "size": "8"
     }
   ],
-  "functions": [
+  "actions": [
     {
       "name": "Save", "label": "Save", "method": "", "importance": "primary"
     },

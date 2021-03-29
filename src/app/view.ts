@@ -1,23 +1,18 @@
+import {Action} from './action';
+
 export class View {
   layout: string;
   title?: string;
   data?: any[];
-  functions: any[];
+  actions: Action[];
 
   constructor(options: {
       title?: string;
       data?: any[];
-      functions?: any[];
+      actions?: Action[];
     } = {}){
     this.title = options.title || '';
     this.data = options.data || [];
-    this.functions = options.functions || [];
+    this.actions = options.actions || [];
   }
-}
-
-export interface Function {
-  name: string;
-  label: string;
-  method: string;
-  importance: '' | 'primary' | 'accent' | 'warn' | 'disabled';
 }

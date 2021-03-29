@@ -75,7 +75,7 @@
       "Opening Balance": null
     }
   ],
-  "functions": [
+  "actions": [
     {"name": "Add", "label": "Add", "method": "", "importance": "primary"}
   ]
 }
