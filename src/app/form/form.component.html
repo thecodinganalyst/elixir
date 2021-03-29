@@ -22,7 +22,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button *ngFor="let fn of formView.functions" mat-raised-button color="{{fn.importance}}">{{fn.label}}</button>
     </mat-card-actions>
   </mat-card>
 </form>

@@ -59,5 +59,12 @@
       "size": "8"
     }
   ],
-  "functions": ["Save", "Cancel"]
+  "functions": [
+    {
+      "name": "Save", "label": "Save", "method": "", "importance": "primary"
+    },
+    {
+      "name": "Cancel", "label": "Cancel", "method": "", "importance": ""
+    }
+  ]
 }

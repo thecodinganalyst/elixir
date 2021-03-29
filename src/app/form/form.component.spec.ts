@@ -19,6 +19,7 @@ import {MatSelectHarness} from '@angular/material/select/testing';
 import {SAMPLE} from '../testing/mock-elixir';
 import {HttpClient} from '@angular/common/http';
 import {MatButtonHarness} from '@angular/material/button/testing';
+import {MatCardHarness} from '@angular/material/card/testing';
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -33,6 +34,7 @@ describe('FormComponent', () => {
   let mdcGridCells: Element[];
 
   let loader: HarnessLoader;
+  let matCardActionLoader: HarnessLoader;
   let matFormFieldHarnesses: MatFormFieldHarness[];
 
   const mockFormSortedData: Control[] = SAMPLE.MOCK_FORM.data.sort((a, b) => a.order - b.order);
@@ -71,6 +73,7 @@ describe('FormComponent', () => {
 
     loader = TestbedHarnessEnvironment.loader(fixture);
     matFormFieldHarnesses = await loader.getAllHarnesses(MatFormFieldHarness);
+    matCardActionLoader = await loader.getChildLoader('.mat-card-actions');
   });
 
   it('should compile', () => {
@@ -150,11 +153,15 @@ describe('FormComponent', () => {
     }
   });
 
-  it('should show message box when submit is clicked', async () => {
-    spyOn(window, 'alert');
-    const submitButton = await loader.getHarness(MatButtonHarness.with({text: 'Submit'}));
-    await submitButton.click();
-    expect(window.alert).toHaveBeenCalledWith('Thanks!');
+  it('should display the buttons in the mat-card-actions', async () => {
+    const matCardActionEl = matCardEl.querySelector('.mat-card-actions');
+    const mockFnCount = SAMPLE.MOCK_FORM.functions.length;
+    const buttons = matCardActionEl.querySelectorAll('button');
+    expect(buttons?.length ?? 0).toEqual(mockFnCount);
+    const matButtons = await matCardActionLoader.getAllHarnesses(MatButtonHarness);
+    for (let i = 0; i < SAMPLE.MOCK_FORM.functions.length; i++){
+      expect(await matButtons[i].getText()).toEqual(SAMPLE.MOCK_FORM.functions[i].label);
+    }
   });
 
 });

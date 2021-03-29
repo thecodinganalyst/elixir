@@ -26,7 +26,7 @@ export class SAMPLE {
     dataHeaders: ['a', 'b'],
     headerTypes: ['number', 'number'],
     data: [{a: 4, b: 2}, {a: 2, b: 4}, {a: 6, b: 6}, {a: 1, b: 1}, {a: 3, b: 5}, {a: 5, b: 3}],
-    functions: ['save']
+    functions: [{name: 'Add', label: 'Add', method: '', importance: 'primary'}]
   };
   static MOCK_TABLE_URL = 'assets/sample_table.json';
 
@@ -39,7 +39,10 @@ export class SAMPLE {
       {name: 'Select', value: '', label: 'Select', required: true, order: 3, control: 'dropdown', size: 6, options:
           [{display: 'one', value: 1}, {display: 'two', value: 2}]},
       {name: 'Select', value: '', label: 'Select', required: false, order: 4, control: 'dropdown', size: 6}],
-    functions: ['save']
+    functions: [
+      {name: 'Save', label: 'Save', method: '', importance: 'primary'},
+      {name: 'Cancel', label: 'Cancel', method: '', importance: ''}
+    ]
   };
   static MOCK_FORM_URL = 'assets/sample_form.json';
 }
