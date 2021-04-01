@@ -19,7 +19,6 @@ import {MatSelectHarness} from '@angular/material/select/testing';
 import {SAMPLE} from '../testing/mock-elixir';
 import {HttpClient} from '@angular/common/http';
 import {MatButtonHarness} from '@angular/material/button/testing';
-import {MatCardHarness} from '@angular/material/card/testing';
 
 describe('FormComponent', () => {
   let component: FormComponent;
