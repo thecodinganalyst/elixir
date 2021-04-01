@@ -4,9 +4,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableDataSource } from './table-datasource';
 import {ActivatedRoute} from '@angular/router';
-import {first, pluck, switchMap} from 'rxjs/operators';
+import {first, map, pluck, shareReplay, switchMap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {TableView} from './table-view';
+import {Action} from '../action';
+import {Observable} from 'rxjs';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-table',
@@ -18,12 +21,20 @@ export class TableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<any>;
   dataSource: TableDataSource;
-
+  actions: Action[];
   displayedColumns: string[];
+  title: string;
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
   constructor(private route: ActivatedRoute,
               private cdRef: ChangeDetectorRef,
-              private httpClient: HttpClient) {
+              private httpClient: HttpClient,
+              private breakpointObserver: BreakpointObserver) {
   }
 
   ngAfterViewInit(): void {
@@ -37,6 +48,8 @@ export class TableComponent implements AfterViewInit {
       this.displayedColumns = this.dataSource.displayedColumns;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.title = value.title;
+      this.actions = value.actions;
       this.table.dataSource = this.dataSource;
       this.cdRef.detectChanges();
     });
