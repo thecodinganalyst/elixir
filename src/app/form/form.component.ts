@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormView} from './form-view';
 import {ActivatedRoute} from '@angular/router';
-import {pluck, switchMap} from 'rxjs/operators';
+import {map, pluck, shareReplay, switchMap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-form',
@@ -15,9 +17,16 @@ export class FormComponent implements OnInit{
   formView: FormView;
   formGroup: FormGroup;
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   constructor(private fb: FormBuilder,
               private httpClient: HttpClient,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private breakpointObserver: BreakpointObserver
               ) {}
 
   onSubmit(): void {

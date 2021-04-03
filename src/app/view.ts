@@ -1,16 +1,18 @@
+import {Action} from './action';
+
 export class View {
   layout: string;
   title?: string;
   data?: any[];
-  functions: string[];
+  actions: Action[];
 
   constructor(options: {
       title?: string;
       data?: any[];
-      functions?: string[];
+      actions?: Action[];
     } = {}){
     this.title = options.title || '';
     this.data = options.data || [];
-    this.functions = options.functions || [];
+    this.actions = options.actions || [];
   }
 }

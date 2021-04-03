@@ -15,7 +15,6 @@ export class TableDataSource extends DataSource<any> {
   data: any[];
   displayedColumns: string[];
   title: string;
-  functions: string[];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -24,7 +23,6 @@ export class TableDataSource extends DataSource<any> {
     this.data = tableData.data;
     this.displayedColumns = tableData.dataHeaders;
     this.title = tableData.title;
-    this.functions = tableData.functions;
   }
 
   /**
