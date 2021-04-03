@@ -37,6 +37,6 @@ jobs:
         
       # Run unit tests
       - name: Angular Unit Tests
-        run: ng test
+        run: npm run test
         
         
