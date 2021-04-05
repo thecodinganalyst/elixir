@@ -2,7 +2,7 @@
 
 Elixir will reference `assets/navigation.json` for information on how to build the frame for navigation. 
 
-The structure requirement of the navigation file is as follows:
+## The structure requirement of the navigation file is as follows:
 
 logo
 : path to the logo to be displayed in the sidenav
@@ -16,7 +16,7 @@ menu
 bottomMenu 
 : a list of menu item, this menu will be aligned to the bottom of the sidenav
 
-The structure of the menu item is as follows:
+## The structure of the menu item is as follows:
 
 icon
 : name of the material design icon to be displayed, list available at https://fonts.google.com/icons?selected=Material+Icons
