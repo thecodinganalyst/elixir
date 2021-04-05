@@ -62,6 +62,7 @@ describe('FormComponent', () => {
   beforeEach(async () => {
     fixture = TestBed.createComponent(FormComponent);
     component = fixture.componentInstance;
+    component.isHandset$ = of(false);
     fixture.detectChanges();
 
     const nativeEl = fixture.nativeElement;

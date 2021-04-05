@@ -15,8 +15,7 @@ import {HarnessLoader} from '@angular/cdk/testing';
 import {MatCellHarness, MatHeaderCellHarness, MatTableHarness} from '@angular/material/table/testing';
 import {MatPaginatorHarness} from '@angular/material/paginator/testing';
 import {MatButtonHarness} from '@angular/material/button/testing';
-import {MatCardHarness} from '@angular/material/card/testing';
-import {MatCard} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -37,7 +36,8 @@ describe('TableComponent', () => {
         MatPaginatorModule,
         MatSortModule,
         MatTableModule,
-        MatCardModule
+        MatCardModule,
+        MatButtonModule,
       ],
       providers: [
         {provide: ActivatedRoute, useValue: mockActivatedRoute},

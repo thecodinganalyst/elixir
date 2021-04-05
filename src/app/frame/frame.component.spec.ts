@@ -9,17 +9,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { FrameComponent } from './frame.component';
 import {of} from 'rxjs';
-import {Router} from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import {NavigationService} from '../navigation/navigation.service';
 import {FakeMatIconRegistry, MatIconHarness} from '@angular/material/icon/testing';
 import {HarnessLoader} from '@angular/cdk/testing';
 import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {MatNavListHarness} from '@angular/material/list/testing';
 import {BrowserModule, By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {RouterLinkDirectiveStub} from '../testing/router-link-directive-stub';
 import {HttpClient} from '@angular/common/http';
 import {SAMPLE} from '../testing/mock-elixir';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('FrameComponent', () => {
   let component: FrameComponent;
@@ -54,14 +55,15 @@ describe('FrameComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
-        BrowserModule,
+        BrowserModule
       ],
       providers: [
         {provide: HttpClient, useValue: httpClientSpy},
         {provide: Router, useValue: routerSpy},
         {provide: NavigationService, useValue: navSvcSpy},
         {provide: MatIconRegistry, useClass: FakeMatIconRegistry}
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
