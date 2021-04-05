@@ -3,6 +3,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 import { TableComponent } from './table.component';
 import {ActivatedRoute} from '@angular/router';
@@ -13,6 +14,8 @@ import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {HarnessLoader} from '@angular/cdk/testing';
 import {MatCellHarness, MatHeaderCellHarness, MatTableHarness} from '@angular/material/table/testing';
 import {MatPaginatorHarness} from '@angular/material/paginator/testing';
+import {MatButtonHarness} from '@angular/material/button/testing';
+import {MatButtonModule} from '@angular/material/button';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -33,6 +36,8 @@ describe('TableComponent', () => {
         MatPaginatorModule,
         MatSortModule,
         MatTableModule,
+        MatCardModule,
+        MatButtonModule,
       ],
       providers: [
         {provide: ActivatedRoute, useValue: mockActivatedRoute},
@@ -84,6 +89,15 @@ describe('TableComponent', () => {
     await paginatorHarness.goToNextPage();
     const p2CellR1C1Harness = await tableHarness.getHarness(MatCellHarness);
     expect(await p2CellR1C1Harness.getText()).toBe('5');
+  });
+
+  it('should display the buttons', async () => {
+    const matCardHeaderLoader = await loader.getChildLoader('.header-buttons');
+    const headerButtons = await matCardHeaderLoader.getAllHarnesses(MatButtonHarness);
+    expect(headerButtons?.length).toEqual(SAMPLE.MOCK_TABLE.actions.length);
+    for (let i = 0; i < SAMPLE.MOCK_TABLE.actions.length; i++){
+      expect(await headerButtons[i].getText()).toEqual(SAMPLE.MOCK_TABLE.actions[i].label);
+    }
   });
 
 });

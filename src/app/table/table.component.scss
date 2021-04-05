@@ -1,5 +1,19 @@
-@use "~@material/layout-grid/mdc-layout-grid";
-
 .elixir-table {
-  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .header-buttons {
+    margin: 0 0 16px;
+  }
+
+  .table-container{
+    flex: 0 0 100%;
+
+    table {
+      width: 100%;
+    }
+
+  }
+
 }

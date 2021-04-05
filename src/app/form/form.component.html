@@ -1,7 +1,7 @@
 <form *ngIf="formGroup && formView" [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>{{formView.title}}</mat-card-title>
+      <mat-card-title *ngIf="!(isHandset$ | async)">{{formView.title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="mdc-layout-grid">
@@ -22,7 +22,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button *ngFor="let fn of formView.actions" mat-raised-button color="{{fn.importance}}">{{fn.label}}</button>
     </mat-card-actions>
   </mat-card>
 </form>

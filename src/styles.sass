@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@use "~@material/layout-grid/mdc-layout-grid"
+@use "~@material/layout-grid/variables"
+@use "~@material/layout-grid/mixins"
+@use 'sass:map'
+
+.outlet
+  @each $size in map.keys(variables.$breakpoints)
+    @include mixins.media-query_($size)
+      $margin_size: map.get(variables.$default-margin, $size)
+      margin: $margin_size
