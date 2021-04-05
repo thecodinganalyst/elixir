@@ -1,9 +1,3 @@
-@use "~@material/layout-grid/mdc-layout-grid";
-@use "~@angular/material/theming";
-@use "~@material/layout-grid/variables";
-@use "~@material/layout-grid/mixins";
-@use 'sass:map';
-
 .elixir-table {
   display: flex;
   flex-wrap: wrap;
