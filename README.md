@@ -4,6 +4,8 @@ Elixir is a frontend web application builder, that allows users to create the us
 
 This project is still work-in-progress, and many features have not been implemented. But it is actively in development.
 
+Refer to https://thecodinganalyst.github.io/elixir/ for usage
+
 
 ## Prerequisite
 
