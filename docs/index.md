@@ -29,3 +29,4 @@ Run `ng test --no-watch --code-coverage` to generate the code coverage report, w
 Run `ng build --prod`, and the production ready files will be generated in the `dist` folder. Copy the results to a web server to serve. 
 
 If a webserver is not available, install [serve](https://www.npmjs.com/package/serve) with `npm install -g serve`, navigate to `/dist/elixir` and run `serve`. The url to access the served pages will be shown in the terminal - `http://localhost:5000`.
+
