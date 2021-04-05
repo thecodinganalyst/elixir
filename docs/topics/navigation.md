@@ -33,3 +33,50 @@ component
 data
 : path to the json file to instruct how the component is to be displayed
 
+## Example
+
+```json
+{
+  "logo": "assets/elixir-logo-inverted.svg",
+  "title": "Elixir",
+  "menu": [
+    {
+      "icon": "table_view",
+      "name": "Sample Table 1",
+      "path": "sample_table_1",
+      "component": "table",
+      "data": "assets/sample_table_1.json"
+    },
+    {
+      "icon": "dynamic_form",
+      "name": "Sample Form 1",
+      "path": "sample_form_1",
+      "component": "form",
+      "data": "assets/sample_form_1.json"
+    }
+  ],
+  "bottomMenu": [
+    {
+      "icon": "person",
+      "name": "Profile",
+      "path": "",
+      "component": "table",
+      "data": ""
+    },
+    {
+      "icon": "help",
+      "name": "FAQ",
+      "path": "",
+      "component": "table",
+      "data": ""
+    },
+    {
+      "icon": "logout",
+      "name": "Logout",
+      "path": "",
+      "component": "table",
+      "data": ""
+    }
+  ]
+}
+```
