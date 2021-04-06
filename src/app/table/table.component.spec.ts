@@ -16,6 +16,8 @@ import {MatCellHarness, MatHeaderCellHarness, MatTableHarness} from '@angular/ma
 import {MatPaginatorHarness} from '@angular/material/paginator/testing';
 import {MatButtonHarness} from '@angular/material/button/testing';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCheckbox, MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckboxHarness} from '@angular/material/checkbox/testing';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -38,6 +40,7 @@ describe('TableComponent', () => {
         MatTableModule,
         MatCardModule,
         MatButtonModule,
+        MatCheckboxModule,
       ],
       providers: [
         {provide: ActivatedRoute, useValue: mockActivatedRoute},
@@ -60,14 +63,16 @@ describe('TableComponent', () => {
 
   it('should sort ascending and descending correctly', async () => {
     const headerCellsHarness = await tableHarness.getAllHarnesses(MatHeaderCellHarness);
-    const headerCellEl = await headerCellsHarness[0].host();
+    const headerCellEl = await headerCellsHarness[1].host();
     await headerCellEl.click();
     fixture.detectChanges();
-    let cellR1C1Harness = await tableHarness.getHarness(MatCellHarness);
+    let row1 = (await tableHarness.getRows())[0];
+    let cellR1C1Harness = (await row1.getCells())[1];
     expect(await cellR1C1Harness.getText()).toBe('1');
     await headerCellEl.click();
     fixture.detectChanges();
-    cellR1C1Harness = await tableHarness.getHarness(MatCellHarness);
+    row1 = (await tableHarness.getRows())[0];
+    cellR1C1Harness = (await row1.getCells())[1];
     expect(await cellR1C1Harness.getText()).toBe('6');
   });
 
@@ -87,7 +92,8 @@ describe('TableComponent', () => {
     const paginatorHarness = await loader.getHarness(MatPaginatorHarness);
     await paginatorHarness.setPageSize(5);
     await paginatorHarness.goToNextPage();
-    const p2CellR1C1Harness = await tableHarness.getHarness(MatCellHarness);
+    const row1 = (await tableHarness.getRows())[0];
+    const p2CellR1C1Harness = (await row1.getCells())[1];
     expect(await p2CellR1C1Harness.getText()).toBe('5');
   });
 
@@ -97,6 +103,34 @@ describe('TableComponent', () => {
     expect(headerButtons?.length).toEqual(SAMPLE.MOCK_TABLE.actions.length);
     for (let i = 0; i < SAMPLE.MOCK_TABLE.actions.length; i++){
       expect(await headerButtons[i].getText()).toEqual(SAMPLE.MOCK_TABLE.actions[i].label);
+    }
+  });
+
+  it('should have checkbox in the first column', async() => {
+    const rows = await tableHarness.getRows();
+    for (const row of rows){
+      const cell1 = (await row.getCells())[0];
+      const checkbox = await cell1.getHarness(MatCheckboxHarness);
+      expect(checkbox).toBeTruthy();
+    }
+  });
+
+  it('should check and uncheck all when the header checkbox is toggled', async() => {
+    const headerRow = (await tableHarness.getHeaderRows())[0];
+    const headerCell1 = (await headerRow.getCells())[0];
+    const headerCheckbox = await headerCell1.getHarness(MatCheckboxHarness);
+    await headerCheckbox.check();
+    const rows = await tableHarness.getRows();
+    for (const row of rows){
+      const cell1 = (await row.getCells())[0];
+      const checkbox = await cell1.getHarness(MatCheckboxHarness);
+      expect(await checkbox.isChecked()).toBeTrue();
+    }
+    await headerCheckbox.uncheck();
+    for (const row of rows){
+      const cell1 = (await row.getCells())[0];
+      const checkbox = await cell1.getHarness(MatCheckboxHarness);
+      expect(await checkbox.isChecked()).toBeFalse();
     }
   });
 
