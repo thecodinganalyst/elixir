@@ -91,7 +91,6 @@ describe('FormComponent', () => {
   });
 
   it('should display the labels in the order specified in mockForm', async () => {
-    // tslint:disable-next-line:forin
     for (const i in mockFormSortedData) {
       const ctl = await matFormFieldHarnesses[i].getControl();
       const actualLabel = await matFormFieldHarnesses[i].getLabel();
