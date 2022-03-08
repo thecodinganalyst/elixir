@@ -1,5 +1,5 @@
 <div class="elixir-table outlet">
-  <header *ngIf="!(isHandset$ | async)" class="mat-title">{{title}}</header>
+  <header *ngIf="(isHandset$ | async) === false" class="mat-title">{{title}}</header>
   <div class="header-buttons">
     <button *ngFor="let fn of actions" mat-raised-button color="{{fn.importance}}">{{fn.label}}</button>
   </div>

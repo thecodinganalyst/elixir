@@ -1,10 +1,10 @@
 import {Directive, HostListener, Input} from '@angular/core';
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line
   selector: '[routerLink]'
 })
-// tslint:disable-next-line:directive-class-suffix
+// eslint-disable-next-line
 export class RouterLinkDirectiveStub {
   @Input('routerLink') linkParams: any;
   navigatedTo: any = null;

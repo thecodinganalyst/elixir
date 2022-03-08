@@ -1,7 +1,7 @@
 <form *ngIf="formGroup && formView" [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit()">
   <mat-card>
     <mat-card-header>
-      <mat-card-title *ngIf="!(isHandset$ | async)">{{formView.title}}</mat-card-title>
+      <mat-card-title *ngIf="(isHandset$ | async) === false">{{formView.title}}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="mdc-layout-grid">
