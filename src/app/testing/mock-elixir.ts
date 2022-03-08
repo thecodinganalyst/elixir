@@ -36,9 +36,9 @@ export class SAMPLE {
     data: [
       {name: 'Name', value: '', label: 'Name', required: true, order: 2, control: 'textbox', type: 'text', size: 12},
       {name: 'Type', value: '', label: 'Type', required: true, order: 1, control: 'textbox', type: 'text', size: 12},
-      {name: 'Select', value: '', label: 'Select', required: true, order: 3, control: 'dropdown', size: 6, options:
+      {name: 'Select', value: '', label: 'Select1', required: true, order: 3, control: 'dropdown', size: 6, options:
           [{display: 'one', value: 1}, {display: 'two', value: 2}]},
-      {name: 'Select', value: '', label: 'Select', required: false, order: 4, control: 'dropdown', size: 6}],
+      {name: 'Select', value: '', label: 'Select2', required: false, order: 4, control: 'dropdown', size: 6}],
     actions: [
       {name: 'Save', label: 'Save', method: '', importance: 'primary'},
       {name: 'Cancel', label: 'Cancel', method: '', importance: ''}

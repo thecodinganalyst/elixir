@@ -90,15 +90,19 @@ describe('FormComponent', () => {
     expect(matFormFieldHarnesses.length).toEqual(SAMPLE.MOCK_FORM.data.length);
   });
 
-  it('should display the labels in the order specified in mockForm', async (done) => {
-    const promises = [];
-    mockFormSortedData.forEach((ctl, i) => {
-      const promise = matFormFieldHarnesses[i].getLabel().then(
-        label => expect(label).toEqual(ctl.label)
-      );
-      promises.push(promise);
-    });
-    Promise.all(promises).then(() => done());
+  it('should display the labels in the order specified in mockForm', async () => {
+    // tslint:disable-next-line:forin
+    for (const i in mockFormSortedData) {
+      const ctl = await matFormFieldHarnesses[i].getControl();
+      const actualLabel = await matFormFieldHarnesses[i].getLabel();
+      const expectedLabel = mockFormSortedData[i].label;
+      const required = mockFormSortedData[i].required;
+      if (ctl instanceof MatInputHarness){
+        expect(actualLabel).toEqual(required ? expectedLabel.concat(' *') : expectedLabel);
+      }else {
+        expect(actualLabel).toEqual(expectedLabel);
+      }
+    }
   });
 
   it('should display the controls in the order specified in mockForm',  (done) => {
