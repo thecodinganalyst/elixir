@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "coverage": "ng test --no-watch --code-coverage",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadlessCustom",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
