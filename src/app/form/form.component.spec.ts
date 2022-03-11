@@ -38,8 +38,6 @@ describe('FormComponent', () => {
 
   const mockFormSortedData: Control[] = SAMPLE.MOCK_FORM.data.sort((a, b) => a.order - b.order);
 
-  const CtrlComponentHarnessMap = {textbox: MatInputHarness, textArea: MatInputHarness, dropdown: MatSelectHarness};
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FormComponent ],
@@ -104,20 +102,24 @@ describe('FormComponent', () => {
     }
   });
 
-  it('should display the controls in the order specified in mockForm',  (done) => {
-    const promises = [];
-    mockFormSortedData.forEach((ctl, i) => {
-      const promise = matFormFieldHarnesses[i].getControl().then(
-        harnessCtrl => expect(harnessCtrl).toBeInstanceOf(CtrlComponentHarnessMap[ctl.control])
-      );
-      promises.push(promise);
-    });
-    Promise.all(promises).then(() => done());
+  it('should display the controls in the order specified in mockForm',  async () => {
+    for (const i in mockFormSortedData) {
+      const actualCtl = await (matFormFieldHarnesses[i].getControl());
+      switch (mockFormSortedData[i].control) {
+        case 'textbox':
+        case 'textarea':
+          expect(actualCtl).toBeInstanceOf(MatInputHarness);
+          break;
+        case 'dropdown':
+          expect(actualCtl).toBeInstanceOf(MatSelectHarness);
+          break;
+      }
+    }
   });
 
   it('should display the size correctly as specified in mockForm', async () => {
     for (let i = 0; i < mdcGridCells.length; i++){
-      expect(await mdcGridCells[i].classList.contains('mdc-layout-grid__cell--span-' + mockFormSortedData[i].size)).toBeTrue();
+      expect(mdcGridCells[i].classList.contains('mdc-layout-grid__cell--span-' + mockFormSortedData[i].size)).toBeTrue();
     }
   });
 
