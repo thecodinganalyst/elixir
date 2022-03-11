@@ -17,7 +17,6 @@ import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
 import {MatNavListHarness} from '@angular/material/list/testing';
 import {BrowserModule, By} from '@angular/platform-browser';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
-import {RouterLinkDirectiveStub} from '../testing/router-link-directive-stub';
 import {HttpClient} from '@angular/common/http';
 import {SAMPLE} from '../testing/mock-elixir';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -31,22 +30,15 @@ describe('FrameComponent', () => {
   let sideNavToolBarLoader: HarnessLoader;
   let menu: MatNavListHarness;
 
-  const routerSpy = jasmine.createSpyObj('Router', ['resetConfig']);
-  let mockRouterConfig = {};
-  routerSpy.resetConfig.and.callFake((routes) => mockRouterConfig = routes);
-
   const navSvcSpy = jasmine.createSpyObj('NavigationService', ['initRoutes'], {NAVIGATION_URL: 'assets/navigation.json'});
   navSvcSpy.initRoutes.and.returnValue(of(SAMPLE.MOCK_CONFIG));
 
   const httpClientSpy: jasmine.SpyObj<HttpClient> = jasmine.createSpyObj('HttpClient', ['get']);
   httpClientSpy.get.withArgs(SAMPLE.MOCK_NAVIGATION_URL).and.returnValue(of(SAMPLE.MOCK_NAVIGATION));
 
-  let linkDes: DebugElement[];
-  let routerLinks: RouterLinkDirectiveStub[];
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [FrameComponent, RouterLinkDirectiveStub],
+      declarations: [FrameComponent /*RouterLinkDirectiveStub*/],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
@@ -55,11 +47,11 @@ describe('FrameComponent', () => {
         MatListModule,
         MatSidenavModule,
         MatToolbarModule,
-        BrowserModule
+        BrowserModule,
+        RouterTestingModule,
       ],
       providers: [
         {provide: HttpClient, useValue: httpClientSpy},
-        {provide: Router, useValue: routerSpy},
         {provide: NavigationService, useValue: navSvcSpy},
         {provide: MatIconRegistry, useClass: FakeMatIconRegistry}
       ],
@@ -74,10 +66,6 @@ describe('FrameComponent', () => {
     sideNavToolBarLoader = await sideNavLoader.getChildLoader('.mat-toolbar');
     menu = await sideNavLoader.getHarness(MatNavListHarness);
     fixture.detectChanges();
-
-    // For testing of router links
-    linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
-    routerLinks = linkDes.map(de => de.injector.get(RouterLinkDirectiveStub));
 
     component = fixture.componentInstance;
     appFrameEl = fixture.nativeElement;
@@ -105,14 +93,14 @@ describe('FrameComponent', () => {
     const sampleTableMenuItem = (await menu.getItems())[0];
     expect(await sampleTableMenuItem.hasIcon()).toBeTrue();
     expect(await sampleTableMenuItem.getText()).toEqual('sample table');
-    // TODO: Check href of MatNavListItemHarness is correct also
+    expect(await sampleTableMenuItem.getHref()).toContain('sample_table')
   });
 
   it('should have icon, have text sample form, and router link to /sample_form in the 2nd menu item', async () => {
     const sampleTableMenuItem = (await menu.getItems())[1];
     expect(await sampleTableMenuItem.hasIcon()).toBeTrue();
     expect(await sampleTableMenuItem.getText()).toEqual('sample form');
-    // TODO: Check href of MatNavListItemHarness is correct also
+    expect(await sampleTableMenuItem.getHref()).toContain('sample_form');
   });
 
   it('should update toolbar title when a menu item is clicked', async () => {
