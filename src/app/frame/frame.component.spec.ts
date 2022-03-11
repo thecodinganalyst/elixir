@@ -20,6 +20,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SAMPLE} from '../testing/mock-elixir';
 import {RouterTestingModule} from '@angular/router/testing';
+import {MatSidenavContentHarness} from '@angular/material/sidenav/testing';
 
 describe('FrameComponent', () => {
   let component: FrameComponent;
@@ -85,6 +86,12 @@ describe('FrameComponent', () => {
     expect(navTitle.textContent).toEqual('elixir test');
   });
 
+  it('should not have toolbar in the nav content', () => {
+    const nativeEl = fixture.nativeElement;
+    const toolBarEl = nativeEl.querySelector('.mat-sidenav-content .mat-toolbar');
+    expect(toolBarEl).toBeNull()
+  })
+
   it('should generate the menu nav list with 2 items', async () => {
     expect((await menu.getItems()).length).toEqual(2);
   });
@@ -103,17 +110,18 @@ describe('FrameComponent', () => {
     expect(await sampleTableMenuItem.getHref()).toContain('sample_form');
   });
 
-  it('should update toolbar title when a menu item is clicked', async () => {
-    component.isHandset$ = of(true);
-    fixture.detectChanges();
-    const sampleTableMenuItem = (await menu.getItems())[0];
-    await sampleTableMenuItem.click();
+  describe('Mobile mode', function() {
+    it('should update toolbar title when a menu item is clicked', async () => {
+      component.isHandset$ = of(true);
+      fixture.detectChanges();
+      const sampleTableMenuItem = (await menu.getItems())[0];
+      await sampleTableMenuItem.click();
 
-    const nativeEl = fixture.nativeElement;
-    const toolBarEl = nativeEl.querySelector('.mat-sidenav-content .mat-toolbar');
-    const toolBarSpanEl = toolBarEl.querySelector('header');
+      const nativeEl = fixture.nativeElement;
+      const toolBarEl = nativeEl.querySelector('.mat-sidenav-content .mat-toolbar');
+      const toolBarSpanEl = toolBarEl.querySelector('header');
 
-    expect(toolBarSpanEl.innerText).toEqual('sample table');
+      expect(toolBarSpanEl.innerText).toEqual('sample table');
+    });
   });
-
 });
